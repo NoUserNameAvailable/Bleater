@@ -8,10 +8,8 @@
  * Controller of the bleaterApp
  */
 angular.module('bleaterApp')
-  .controller('MainCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+  .controller('MainCtrl', function ($scope, bleater) {
+
+    console.log(bleater.getIsLogged());
+
   });
