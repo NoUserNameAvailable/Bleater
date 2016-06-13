@@ -15,7 +15,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ui-notification'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -29,7 +30,29 @@ angular
         controller: 'AboutCtrl',
         controllerAs: 'about'
       })
+      .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl',
+        controllerAs: 'profile'
+      })
+      .when('/bleats', {
+        templateUrl: 'views/bleats.html',
+        controller: 'BleatsCtrl',
+        controllerAs: 'bleats'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        controllerAs: 'login'
+      })
+      .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupCtrl',
+        controllerAs: 'signup'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .constant('urlServer', '192.168.126.128:3000')
+;

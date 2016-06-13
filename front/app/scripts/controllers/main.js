@@ -12,4 +12,5 @@ angular.module('bleaterApp')
 
     console.log(bleater.getIsLogged());
 
+    
   });
