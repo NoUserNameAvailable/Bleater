@@ -20,6 +20,8 @@ angular.module('bleaterApp')
       email: null
     };
 
+    
+
     var testIsLogged = function () {
       if (isLogged == false) {
         $location.path('/main')
@@ -262,8 +264,7 @@ angular.module('bleaterApp')
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + token
             }
-          }).success(function (data, status, headers, config) {
-            $location.path("/login");
+          }).success(function (data, status, headers, config){
             return true;
           }).error(function (data, status, headers, config) {
             console.log(data);
