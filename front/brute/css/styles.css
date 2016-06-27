@@ -113,6 +113,10 @@ h3,h4,h5 {
   width: 58%;
 }
 
+#postModal > .modal-dialog {
+  width: 58%;
+}
+
 .profile {
   font-size: 14px !important;
 }
