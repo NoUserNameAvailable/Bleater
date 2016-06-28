@@ -55,6 +55,7 @@
 			<div class="navbar-header">
 
 				<a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default btn-plus dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home <small><i class="glyphicon glyphicon-chevron-down"></i></small></a>
+				<a href="#postModal" class="pull-right" data-toggle="modal" data-target="#postModal">View all</a>
 				<ul class="nav dropdown-menu">
 					<li><a href="#"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i> Profile</a></li>
 					<li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
@@ -421,6 +422,33 @@
 			</div>
 		</div>
 	</div>
+
+	<!--post modal-->
+	<div id="postModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+					<h2 class="text-center">Bleat</h2>
+				</div>
+				<div class="modal-body">
+					<div class="col-md-12 text-center">
+						<div class="pull-left">
+							<a href="#addPicture"><i class="glyphicon glyphicon-camera" style="color:#000000; margin-top:125%; font-size:30px;"></i></a> <br>
+						</div>
+						<form>
+							<textarea id="postBleat" rows="5" cols="100"> </textarea>
+						</form>
+					</div>
+				</div>
+				<div class="modal-footer">
+
+					<button class="btn" data-dismiss="modal" aria-hidden="true">Post</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
 
 	<!-- script references -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
