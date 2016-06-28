@@ -1,100 +1,186 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <!-- build:css(.) styles/vendor.css -->
-    <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.css" />
-    <!-- endbower -->
-    <!-- endbuild -->
-    <!-- build:css(.tmp) styles/main.css -->
-    <link rel="stylesheet" href="styles/main.css">
-    <!-- endbuild -->
-  </head>
-  <body ng-app="bleaterApp">
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Bleater</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <!-- Add your site or application content here -->
-    <div class="header">
-      <div class="navbar navbar-default" role="navigation">
-        <div class="container">
-          <div class="navbar-header">
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="bower_components/angular-ui-notification/dist/angular-ui-notification.css" />
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="bleaterApp">
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
 
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
+<nav class="navbar navbar-fixed-top header">
+  <div class="col-md-12">
+    <div class="navbar-header">
+
+      <a href="#" class="navbar-brand">Bleater</a>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse1">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
+
+    </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse1">
+      <form class="navbar-form pull-left">
+        <div class="input-group" style="max-width:470px;">
+          <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
+          <div class="input-group-btn">
+            <button class="btn btn-default btn-primary" type="submit"><i class="glyphicon glyphicon-search"></i>
             </button>
-
-            <a class="navbar-brand" href="#/">bleater</a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <li><a ng-href="#/about">About</a></li>
-              <li><a ng-href="#/">Contact</a></li>
-            </ul>
           </div>
         </div>
-      </div>
+      </form>
+      <ul class="nav navbar-nav navbar-right">
+
+        <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-bell"></i></a>
+          <ul class="dropdown-menu">
+            <li><a href="#"><span class="badge pull-right">40</span>Link</a></li>
+            <li><a href="#"><span class="badge pull-right">2</span>Link</a></li>
+            <li><a href="#"><span class="badge pull-right">0</span>Link</a></li>
+            <li><a href="#"><span class="label label-info pull-right">1</span>Link</a></li>
+            <li><a href="#"><span class="badge pull-right">13</span>Link</a></li>
+          </ul>
+        </li>
+        <li><a href="#" id="btnToggle"><i class="glyphicon glyphicon-th-large"></i></a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-user"></i></a></li>
+      </ul>
     </div>
+  </div>
+</nav>
+<div class="navbar navbar-default" id="subnav">
+  <div class="col-md-12">
+    <div class="navbar-header">
 
-    <div class="container">
-    <div ng-view=""></div>
+      <a href="#" style="margin-left:15px;" class="navbar-btn btn btn-default btn-plus dropdown-toggle"
+         data-toggle="dropdown"><i class="glyphicon glyphicon-home" style="color:#dd1111;"></i> Home
+        <small><i class="glyphicon glyphicon-chevron-down"></i></small>
+      </a>
+      <ul class="nav dropdown-menu">
+        <li><a href="#"><i class="glyphicon glyphicon-user" style="color:#1111dd;"></i> Profile</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-dashboard" style="color:#0000aa;"></i> Dashboard</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-inbox" style="color:#11dd11;"></i> Pages</a></li>
+        <li class="nav-divider"></li>
+        <li><a href="#"><i class="glyphicon glyphicon-cog" style="color:#dd1111;"></i> Settings</a></li>
+        <li><a href="#"><i class="glyphicon glyphicon-plus"></i> More..</a></li>
+      </ul>
+
+
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+
     </div>
-
-    <div class="footer">
-      <div class="container">
-        <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-      </div>
+    <div class="collapse navbar-collapse" id="navbar-collapse2">
+      <ul class="nav navbar-nav navbar-right">
+        <li class="active"><a href="#">Posts</a></li>
+        <li ng-controller="ModalDemoCtrl"><a ng-if="!isLogged"  role="button" data-toggle="modal" ng-click="open()">Login</a></li>
+        <li><a href="#aboutModal" role="button" data-toggle="modal">About</a></li>
+      </ul>
     </div>
+  </div>
+  <div ng-controller="ModalDemoCtrl">
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h2 class="text-center"><img
+              src="https://lh5.googleusercontent.com/-b0-k99FZlyE/AAAAAAAAAAI/AAAAAAAAAAA/eu7opA4byxI/photo.jpg?sz=100"
+              class="img-circle"><br>Login</h2>
+          </div>
+          <div class="modal-body">
+            <form class="form col-md-12 center-block">
+              <div class="form-group">
+                <input ng-model="email" type="text" class="form-control input-lg" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input ng-model="password" type="password" class="form-control input-lg" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <button ng-click="modalLogin()" class="btn btn-primary btn-lg btn-block">Sign In hey</button>
+                <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <div class="modal-footer">
+              <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+              <button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
 
-
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
     </script>
+  </div>
+</div>
 
-    <!-- build:js(.) scripts/vendor.js -->
-    <!-- bower:js -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
-    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src="bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
-    <!-- endbower -->
-    <!-- endbuild -->
+<div class="container">
+  <div ng-view=""></div>
+</div>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/bleater.js"></script>
-        <script src="scripts/controllers/profile.js"></script>
-        <script src="scripts/controllers/bleats.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/controllers/signup.js"></script>
-        <!-- endbuild -->
+<div class="footer">
+  <div class="container">
+    <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+  </div>
+</div>
+
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+  !function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
+</script>
+
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-notification/dist/angular-ui-notification.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<script src="scripts/controllers/main.js"></script>
+<script src="scripts/controllers/about.js"></script>
+<script src="scripts/services/bleater.js"></script>
+<script src="scripts/controllers/profile.js"></script>
+<script src="scripts/controllers/bleats.js"></script>
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/signup.js"></script>
+<!-- endbuild -->
+
+<!-- controller perso-->
 </body>
 </html>

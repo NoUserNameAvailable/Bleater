@@ -12,15 +12,14 @@ angular.module('bleaterApp')
 
     var token = "";
 
-    //todo chnager isLogged à false en prof
-    var isLogged = true;
+    //todo chnager isLogged à false en prod
+    var isLogged = false;
 
     var user = {
+      id: '1',
       name: null,
       email: null
     };
-
-    
 
     var testIsLogged = function () {
       if (isLogged == false) {
@@ -58,13 +57,12 @@ angular.module('bleaterApp')
        * @param login
        * @param password
        */
-      login: function (login, password) {
+      login: function (login, password, callback) {
         var postData = {
           email: login,
           pass: password
         };
-
-        $http({
+        return $http({
           url: 'http://' + urlServer + '/rpc/login',
           method: "POST",
           data: postData,
@@ -72,17 +70,40 @@ angular.module('bleaterApp')
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
           }
-        }).success(function (data, status, headers, config) {
-          console.log("login : " + data.token);
-          isLogged = true;
-          return true;
-        }).error(function (data, status, headers, config) {
-          console.log(data);
-          isLogged = false;
-          return false;
+        }).success(function (response) {
+          user.email = login;
+          user.id = 1;
+          token = response.token;
+          console.log(token);
+          isLogged=true;
+          //callback(response);
+        }).error(function (response) {
+          //callback(response);
         });
-
       },
+      /*login: function (login, password) {
+        var postData = {
+          email: login,
+          pass: password
+        };
+        var promise = $http({
+          url: 'http://' + urlServer + '/rpc/login',
+          method: "POST",
+          data: postData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).then(function (response) {
+          token = response.token;
+          console.log(token);
+          return response;
+          callback(response);
+        },function (response) {
+          return response;
+        });
+        return promise;
+      },*/
 
       signup: function (login, password) {
         if (testIsLogged() == true) {
@@ -138,13 +159,21 @@ angular.module('bleaterApp')
        * @param text optionnel
        */
       //todo connexin serveur
-      reBleat: function (idBleat, text) {
+      postReBleat: function (idBleat, text) {
         if (testIsLogged() == false) {
           console.log("getBleat");
         } else {
-          var postData = {};
-          $http({
-            url: 'http://' + urlServer + '/rpc/signup',
+          var postData = {
+            "contenu" : text,
+            "isrebleat" : true,
+            "isresponse" : false,
+            "iswrite" : true,
+            "iduser" : user.id,
+            "author" : user.email,
+            "idbleatparent" : idBleat
+          };
+          return $http({
+            url: 'http://' + urlServer + '/bleat',
             method: "POST",
             data: postData,
             headers: {
@@ -152,10 +181,8 @@ angular.module('bleaterApp')
               'Authorization': 'Bearer ' + token
             }
           }).success(function (data, status, headers, config) {
-            $location.path("/login");
             return true;
           }).error(function (data, status, headers, config) {
-            console.log(data);
             return false;
           });
         }
@@ -250,75 +277,100 @@ angular.module('bleaterApp')
         }
       },
 
-      //todo bonne url
-      postBleat: function (text) {
+
+      postBleat: function (contenu, isrebleat, isresponse, iswrite) {
         if (testIsLogged() == false) {
           console.log("getBleat");
         } else {
-          var postData = {};
-          $http({
-            url: 'http://' + urlServer + '/rpc/signup',
+          var postData = {
+            "contenu" : contenu,
+            "isrebleat" : isrebleat,
+            "isresponse" : isresponse,
+            "iswrite" : iswrite,
+            "iduser" : user.id,
+            "author" : user.email
+          };
+          return $http({
+            url: 'http://' + urlServer + '/bleat',
             method: "POST",
             data: postData,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + token
             }
-          }).success(function (data, status, headers, config){
-            return true;
-          }).error(function (data, status, headers, config) {
+          }).success(function (response) {
+
+          }).error(function (response) {
             console.log(data);
-            return false;
           });
         }
       },
 
       //todo bonne url
-      postResponseBleat: function (idBleat, stext) {
+      postResponseBleat: function (idBleat, text) {
         if (testIsLogged() == false) {
           console.log("getBleat");
         } else {
-          var postData = {};
-          $http({
-            url: 'http://' + urlServer + '/rpc/signup',
+          var postData = {
+            "contenu" : text,
+            "isrebleat" : false,
+            "isresponse" : true,
+            "iswrite" : false,
+            "iduser" : user.id,
+            "author" : user.email,
+            "idbleatparent" : idBleat
+          };
+          return $http({
+            url: 'http://' + urlServer + '/bleat',
             method: "POST",
             data: postData,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + token
             }
-          }).success(function (data, status, headers, config) {
-            $location.path("/login");
-            return true;
-          }).error(function (data, status, headers, config) {
-            console.log(data);
-            return false;
+          }).success(function (response) {
+          }).error(function (response) {;
           });
         }
       },
 
       //todo bonne url
       getBleats: function () {
-        if (testIsLogged() == false) {
-          console.log("getBleats");
-        } else {
           var postData = {};
           return $http({
-            url: 'http://' + urlServer + '/rpc/signup',
-            method: "POST",
+            url: 'http://' + urlServer + '/test_getbleats?iduserfollow=eq.'+user.id,
+            method: "GET",
             data: postData,
             headers: {
               'Content-Type': 'application/json',
               'Authorization': 'Bearer ' + token
             }
-          }).then(function (response) {
-            return reponse;
-          }, function(response) {
-            console.log(response);
+          }).success(function (response) {
+            return response;
+          }).error(function (response) {
             return response;
           });
-        }
+      },
+
+
+      getBleatsProfile: function (idprofile) {
+        var postData = {};
+        return $http({
+          url: 'http://' + urlServer + '/test_getbleats?iduserfollow=eq.'+user.id,
+          method: "GET",
+          data: postData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).success(function (response) {
+          return response;
+        }).error(function (response) {
+          return response;
+        });
       }
+
+
 
 
     };

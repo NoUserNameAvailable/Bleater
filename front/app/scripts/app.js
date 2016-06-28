@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui-notification'
+    'ui-notification',
+    'ui.bootstrap'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,6 +32,11 @@ angular
         controllerAs: 'about'
       })
       .when('/profile', {
+        templateUrl: 'views/profile.html',
+        controller: 'ProfileCtrl',
+        controllerAs: 'profile'
+      })
+      .when('/profile/:idprofile', {
         templateUrl: 'views/profile.html',
         controller: 'ProfileCtrl',
         controllerAs: 'profile'
