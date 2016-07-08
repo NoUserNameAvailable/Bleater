@@ -116,3 +116,16 @@ h3,h4,h5 {
 .profile {
   font-size: 14px !important;
 }
+
+.creer-compte {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/*.main-login {
+  background: url('../images/bleat_signup.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}*/

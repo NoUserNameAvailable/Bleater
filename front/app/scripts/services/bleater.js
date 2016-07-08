@@ -16,10 +16,11 @@ angular.module('bleaterApp')
     var isLogged = false;
 
     var user = {
-      id: '1',
-      name: null,
-      email: null
+      id: 3,
+      email: '',
+      login: ''
     };
+    var userid = '';
 
     var testIsLogged = function () {
       if (isLogged == false) {
@@ -72,61 +73,76 @@ angular.module('bleaterApp')
           }
         }).success(function (response) {
           user.email = login;
-          user.id = 1;
           token = response.token;
           console.log(token);
-          isLogged=true;
-          //callback(response);
+          isLogged = true;
+          $http({
+            url: 'http://' + urlServer + '/users',
+            method: "GET",
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': 'Bearer ' + token
+            }
+          }).success(function (response) {
+            console.log(response);
+            user.email = response[0].email;
+            user.id = response[0].iduser;
+            user.login = response[0].login;
+            console.log(user);
+          }).error(function (response) {
+
+          });
+
         }).error(function (response) {
           //callback(response);
         });
       },
-      /*login: function (login, password) {
+      userProperties: function () {
+        return $http({
+          url: 'http://' + urlServer + '/users',
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).success(function (response) {
+          //console.log(response);
+          user.email = response.email;
+          user.id = response.iduser;
+          //user.id = 3;
+          user.login = response.login;
+          userid = response.iduser;
+          //console.log(userid);
+        }).error(function (response) {
+
+        });
+      },
+
+      userSetProperties: function (user1) {
+        user = user1;
+      },
+
+
+      signup: function (login, email, password) {
         var postData = {
-          email: login,
+          login: login,
+          email: email,
           pass: password
         };
-        var promise = $http({
-          url: 'http://' + urlServer + '/rpc/login',
+        console.log(postData);
+        return $http({
+          url: 'http://' + urlServer + '/rpc/signup',
           method: "POST",
           data: postData,
           headers: {
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + token
           }
-        }).then(function (response) {
-          token = response.token;
-          console.log(token);
-          return response;
-          callback(response);
-        },function (response) {
-          return response;
+        }).success(function (data, status, headers, config) {
+          $location.path("/bleats");
+        }).error(function (response) {
+          console.log(response);
         });
-        return promise;
-      },*/
-
-      signup: function (login, password) {
-        if (testIsLogged() == true) {
-          var postData = {
-            email: login,
-            pass: password
-          }
-          $http({
-            url: 'http://' + urlServer + '/rpc/signup',
-            method: "POST",
-            data: postData,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token
-            }
-          }).success(function (data, status, headers, config) {
-            $location.path("/login");
-            return true;
-          }).error(function (response) {
-            console.log(response);
-            return response;
-          });
-        }
       },
 
       // Todo implémenter url GET et paramètres
@@ -164,13 +180,13 @@ angular.module('bleaterApp')
           console.log("getBleat");
         } else {
           var postData = {
-            "contenu" : text,
-            "isrebleat" : true,
-            "isresponse" : false,
-            "iswrite" : true,
-            "iduser" : user.id,
-            "author" : user.email,
-            "idbleatparent" : idBleat
+            "contenu": text,
+            "isrebleat": true,
+            "isresponse": false,
+            "iswrite": false,
+            "iduser": user.id,
+            "author": user.email,
+            "idbleatparent": idBleat
           };
           return $http({
             url: 'http://' + urlServer + '/bleat',
@@ -278,17 +294,17 @@ angular.module('bleaterApp')
       },
 
 
-      postBleat: function (contenu, isrebleat, isresponse, iswrite) {
+      postBleat: function (contenu) {
         if (testIsLogged() == false) {
           console.log("getBleat");
         } else {
           var postData = {
-            "contenu" : contenu,
-            "isrebleat" : isrebleat,
-            "isresponse" : isresponse,
-            "iswrite" : iswrite,
-            "iduser" : user.id,
-            "author" : user.email
+            "contenu": contenu,
+            "isrebleat": "false",
+            "isresponse": "false",
+            "iswrite": "true",
+            "iduser": user.id,
+            "login": user.login
           };
           return $http({
             url: 'http://' + urlServer + '/bleat',
@@ -301,7 +317,7 @@ angular.module('bleaterApp')
           }).success(function (response) {
 
           }).error(function (response) {
-            console.log(data);
+            console.log(response);
           });
         }
       },
@@ -312,13 +328,13 @@ angular.module('bleaterApp')
           console.log("getBleat");
         } else {
           var postData = {
-            "contenu" : text,
-            "isrebleat" : false,
-            "isresponse" : true,
-            "iswrite" : false,
-            "iduser" : user.id,
-            "author" : user.email,
-            "idbleatparent" : idBleat
+            "contenu": text,
+            "isrebleat": false,
+            "isresponse": true,
+            "iswrite": false,
+            "iduser": user.id,
+            "author": user.email,
+            "idbleatparent": idBleat
           };
           return $http({
             url: 'http://' + urlServer + '/bleat',
@@ -329,34 +345,17 @@ angular.module('bleaterApp')
               'Authorization': 'Bearer ' + token
             }
           }).success(function (response) {
-          }).error(function (response) {;
+          }).error(function (response) {
+
           });
         }
       },
 
-      //todo bonne url
       getBleats: function () {
-          var postData = {};
-          return $http({
-            url: 'http://' + urlServer + '/test_getbleats?iduserfollow=eq.'+user.id,
-            method: "GET",
-            data: postData,
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer ' + token
-            }
-          }).success(function (response) {
-            return response;
-          }).error(function (response) {
-            return response;
-          });
-      },
-
-
-      getBleatsProfile: function (idprofile) {
         var postData = {};
+        console.log("id user" + user.id);
         return $http({
-          url: 'http://' + urlServer + '/test_getbleats?iduserfollow=eq.'+user.id,
+          url: 'http://' + urlServer + '/viewbleat?iduserfollow=eq.' + user.id,
           method: "GET",
           data: postData,
           headers: {
@@ -368,9 +367,57 @@ angular.module('bleaterApp')
         }).error(function (response) {
           return response;
         });
+      },
+
+
+      getBleatsProfile: function (idprofile) {
+        var postData = {};
+        return $http({
+          url: 'http://' + urlServer + '/bleat?iduser=eq.' + idprofile,
+          method: "GET",
+          data: postData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).success(function (response) {
+          return response;
+        }).error(function (response) {
+          return response;
+        });
+      },
+
+      follow: function(idfollow){
+        var postData ={
+          iduser : user.id,
+          iduser_1: idfollow
+        };
+
+        return $http({
+          url: 'http://' + urlServer + '/follow',
+          method: "POST",
+          data: postData,
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).success(function (response) {
+        }).error(function (response) {
+        });
+      },
+
+      getInfoProfile: function (iduser) {
+        return $http({
+          url: 'http://' + urlServer + '/usersimple?iduser=eq.'+iduser,
+          method: "GET",
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + token
+          }
+        }).success(function (response) {
+        }).error(function (response) {
+        });s
       }
-
-
 
 
     };

@@ -89,7 +89,7 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-collapse2">
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Posts</a></li>
+        <li><a ng-href="#/bleats">Bleats</a></li>
         <li ng-controller="ModalDemoCtrl"><a ng-if="!isLogged"  role="button" data-toggle="modal" ng-click="open()">Login</a></li>
         <li><a href="#aboutModal" role="button" data-toggle="modal">About</a></li>
       </ul>
@@ -112,10 +112,6 @@
               <div class="form-group">
                 <input ng-model="password" type="password" class="form-control input-lg" placeholder="Password">
               </div>
-              <div class="form-group">
-                <button ng-click="modalLogin()" class="btn btn-primary btn-lg btn-block">Sign In hey</button>
-                <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
-              </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -136,7 +132,7 @@
 
 <div class="footer">
   <div class="container">
-    <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
+    <p><span class="glyphicon glyphicon-heart"></span> from the bleater team</p>
   </div>
 </div>
 
